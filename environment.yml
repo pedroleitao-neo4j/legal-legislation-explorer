@@ -1,0 +1,20 @@
+name: legal-legislation-explorer
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.11
+  - jupyter
+  - jupyterlab
+  - notebook
+  - ipykernel
+  - bs4
+  - python-dotenv
+  - pandas
+  - tqdm
+  - lxml
+  - pip
+  - pip:
+    - neo4j
+    - pyspark==3.5.1
+    - neo4j-viz
