@@ -46,3 +46,7 @@ RETURN p
 ### Unique IDs
 
 ID's such as commentary, and ref IDs are not unique across the entire dataset. They are only unique within the context of a single legislation. This means that we need to generate unique IDs for these entities when we load them into the graph database.
+
+### Citations, Sub-Refs, and Commentary
+
+It is currently a bit messy and redundant, needs to be refactored.
