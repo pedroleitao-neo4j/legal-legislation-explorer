@@ -52,7 +52,7 @@ RETURN p
 ```
 
 Create synthetic relationships between Acts which cite each other, and store the count of individual citations as a 'weight' property on the relationship.
-```
+```cypher
 // Find all deep paths where one Act cites another
 MATCH (source:Legislation)-[:HAS_PART|HAS_CHAPTER|HAS_SECTION|HAS_PARAGRAPH|HAS_SCHEDULE|HAS_SUBPARAGRAPH|HAS_COMMENTARY|HAS_CITATION|HAS_SUBREF*1..10]->(citation_link)-[:CITES_ACT|REFERENCES]->(target:Legislation)
 
@@ -68,7 +68,7 @@ SET rel.weight = citation_count
 ```
 
 Match interconnected legislation based on the synthetic CITES_LEGISLATION relationships, which represent the overall citation network between different pieces of legislation.
-```
+```cypher
 MATCH p = (l1:Legislation)-[r:CITES_LEGISLATION]->(l2:Legislation)
 RETURN p
 LIMIT 1000
