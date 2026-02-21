@@ -24,7 +24,7 @@ RETURN p
 
 A piece of legislation down to its sections and paragraphs.
 ```cypher
-match p=(l:Legislation)-[:HAS_PART]->(:Part)-[:HAS_CHAPTER]->(:Chapter)-[:HAS_SECTION]->(:Section)-[:HAS_PARAGRAPH]->(:Paragraph)
+MATCH p=(l:Legislation)-[:HAS_PART]->(:Part)-[:HAS_CHAPTER]->(:Chapter)-[:HAS_SECTION]->(:Section)-[:HAS_PARAGRAPH]->(:Paragraph)
 WHERE l.uri CONTAINS "ukpga/2010/4"
 RETURN p
 ```
