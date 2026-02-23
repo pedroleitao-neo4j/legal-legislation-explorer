@@ -1,6 +1,6 @@
 # A UK Legislation Graph Explorer
 
-> ***Work in progress***, this is not yet reliable enough for 100% fidelity extraction of the entire UK legislation corpus, but it is a starting point for building a graph database of UK legislation, and it is designed to be easily extensible and adaptable to handle the complexities of the UK legislation XML format.
+> ***Work in progress***, this is not yet reliable enough for 100% fidelity extraction of the entire UK legislation corpus, but it is a starting point for building a graph database of legislative documents, and it is designed to be easily extensible and adaptable to handle the complexities of the underlying XML format.
 
 This repository contains a [crawler](crawler.ipynb) and [data loader](data_loader.ipynb) for [UK Legislation](https://www.legislation.gov.uk/). It is intended to be used as a starting point for building a graph database of the legal corpus of the United Kingdom, **without** the need for a complex ETL pipeline, PDF processing, manual data cleaning, or other time-consuming and error-prone processes. The crawler directly extracts structured data from the XML files provided by legislation.gov.uk, and the data loader transforms this structured data into a graph format suitable for loading into Neo4j.
 
