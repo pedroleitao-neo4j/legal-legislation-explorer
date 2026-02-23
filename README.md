@@ -109,6 +109,12 @@ OPTIONAL MATCH cp=(enp)-[:HAS_CITATION]-(:Citation)
 RETURN p,cp
 ```
 
+The network of superseded legislation.
+```cypher
+MATCH p=(:Legislation)-[:SUPERSEDED_BY|SUPERSEDES]-(:Legislation)
+RETURN p
+```
+
 ## TODO
 
 ### Unique IDs
