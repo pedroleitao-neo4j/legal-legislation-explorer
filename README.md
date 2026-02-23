@@ -72,6 +72,7 @@ RETURN p
 ```
 
 Create synthetic relationships between Acts which cite each other, and store the count of individual citations as a 'weight' property on the relationship.
+> This will create **a lot** of relationships, so use with care.
 ```cypher
 // Find all deep paths where one Act cites another
 MATCH (source:Legislation)-[:HAS_PART|HAS_CHAPTER|HAS_SECTION|HAS_PARAGRAPH|HAS_SCHEDULE|HAS_SUBPARAGRAPH|HAS_COMMENTARY|HAS_CITATION|HAS_SUBREF*1..10]->(citation_link)-[:CITES_ACT|REFERENCES]->(target:Legislation)
@@ -92,6 +93,19 @@ Match interconnected legislation based on the synthetic CITES_LEGISLATION relati
 MATCH p = (l1:Legislation)-[r:CITES_LEGISLATION]->(l2:Legislation)
 RETURN p
 LIMIT 1000
+```
+
+Compute the top 10 most cited pieces of legislation.
+```cypher
+// Match the synthetic relationships between Acts
+MATCH (source:Legislation)-[r:CITES_LEGISLATION]->(target:Legislation)
+// Aggregate the data per target legislation
+RETURN target.uri AS CitedLegislation, 
+       count(source) AS IncomingLegislationCount, 
+       sum(r.weight) AS TotalCitations
+// Order by the highest number of total citations and limit to the top 10
+ORDER BY TotalCitations DESC
+LIMIT 10
 ```
 
 All explanatory notes which cite a piece of legislation.
