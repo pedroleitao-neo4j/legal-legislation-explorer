@@ -4,9 +4,29 @@
 
 This repository contains a [crawler](crawler.ipynb) and [data loader](data_loader.ipynb) for [UK Legislation](https://www.legislation.gov.uk/). It is intended to be used as a starting point for building a graph database of the legal corpus of the United Kingdom, **without** the need for a complex ETL pipeline, PDF processing, manual data cleaning, or other time-consuming and error-prone processes. The crawler directly extracts structured data from the XML files provided by legislation.gov.uk, and the data loader transforms this structured data into a graph format suitable for loading into Neo4j.
 
-The XML format for UK legislation is known to be fiendishly complex, and the crawler and data loader are designed to handle this complexity. The crawler extracts the (almost) full hierarchy of legislation, including Parts, Chapters, Sections, Paragraphs, Schedules, and Subparagraphs. It also extracts citations and cross-references between different pieces of legislation, as well as commentaries and other related information.
+The XML format for UK legislation is known to be fiendishly complex, and the crawler and data loader are designed to handle this complexity. The crawler extracts the (almost) full hierarchy of legislation, including Parts, Chapters, Sections, Paragraphs, Schedules, Subparagraphs, Explanatory Notes, and Explanatory Notes Paragraphs. It also extracts citations and cross-references between different pieces of legislation, as well as commentaries and other related information.
+
+It is designed to capture as much structure as possible, meaning it can accommodate complex structural and time-varying queries, as well as the ability to handle multiple versions of the same piece of legislation. However because it attempts to capture as much of the semantical structure as possible, it also requires a reasonable understanding of the legislative corpus (i.e., it is not ***simple***).
 
 > The [loader](loader.ipynb) currently uses [pyspark](https://spark.apache.org/docs/latest/api/python/index.html) to transform the raw JSON data into a format suitable for loading into Neo4j. This is because the transformation process involves some data manipulation, and pyspark provides a powerful and flexible way to handle this. However, it is possible to refactor the loader to use plain Python if desired.
+
+### The legislation parser
+
+The legislation parser is a [crawler](crawler.ipynb) which extracts the (almost) full hierarchy of legislation, including Parts, Chapters, Sections, Paragraphs, Schedules, and Subparagraphs. It also extracts citations and cross-references between different pieces of legislation, as well as commentaries and other related information.
+
+- **Legislation**: The main piece of legislation, which can be an Act, a Statutory Instrument, or a Draft Statutory Instrument.
+- **Metadata**: Metadata about the legislation, such as the title, year, and type.
+- **Superstructure**: The superstructure of the legislation, which is the hierarchy of the legislation (supersedes, superseded-by)
+- **Parts**: The main divisions of a piece of legislation.
+- **Chapters**: The divisions of a Part.
+- **Sections**: The divisions of a Chapter.
+- **Paragraphs**: The divisions of a Section.
+- **Schedules**: The divisions of a piece of legislation which are not Parts, Chapters, Sections, or Paragraphs.
+- **Subparagraphs**: The divisions of a Schedule.
+- **Commentaries**: Commentaries on the legislation.
+- **Citations**: Citations to other pieces of legislation.
+- **Sub-Refs**: Sub-references to other pieces of legislation.
+- **Explanatory Notes**: Explanatory notes on the legislation.
 
 ### Example Queries
 
@@ -72,6 +92,21 @@ Match interconnected legislation based on the synthetic CITES_LEGISLATION relati
 MATCH p = (l1:Legislation)-[r:CITES_LEGISLATION]->(l2:Legislation)
 RETURN p
 LIMIT 1000
+```
+
+All explanatory notes which cite a piece of legislation.
+```cypher
+MATCH p=(:ExplanatoryNotes)-[:HAS_PARAGRAPH]->(:ExplanatoryNotesParagraph)-[:HAS_CITATION]-(:Citation)-[:CITES_ACT]->(l:Legislation)
+WHERE l.uri CONTAINS "uksi/2020/1495"
+RETURN p
+```
+
+All explanatory notes, and their citations, included with a given piece of legislation.
+```cypher
+MATCH p=(l:Legislation)-[:HAS_EXPLANATORY_NOTES]->(:ExplanatoryNotes)-[:HAS_PARAGRAPH]->(enp:ExplanatoryNotesParagraph)
+WHERE l.uri CONTAINS "uksi/2024/1012"
+OPTIONAL MATCH cp=(enp)-[:HAS_CITATION]-(:Citation)
+RETURN p,cp
 ```
 
 ## TODO
