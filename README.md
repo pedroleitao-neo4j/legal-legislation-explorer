@@ -129,6 +129,31 @@ MATCH p=(:Legislation)-[:SUPERSEDED_BY|SUPERSEDES]-(:Legislation)
 RETURN p
 ```
 
+Retrieve all the various items of a given piece of legislation, in the order they appear.
+```cypher
+MATCH p=(l:Legislation)-[*1..]->(n)
+WHERE l.uri CONTAINS "ukpga/2020/14"
+  AND all(x IN nodes(p) WHERE x:Legislation OR x:Part OR x:Chapter OR x:Section OR x:Paragraph)
+RETURN 
+  n.uri AS uri, 
+  labels(n)[0] AS type, 
+  n.order AS order, 
+  coalesce(n.text, n.title) AS text
+ORDER BY [x IN nodes(p) WHERE x.order IS NOT NULL | x.order]
+```
+
+Rebuild the whole text for a given legislation, from the graph.
+```cypher
+MATCH p=(l:Legislation)-[*1..]->(n)
+WHERE l.uri CONTAINS "ukpga/2020/14"
+  AND all(x IN nodes(p) WHERE x:Legislation OR x:Part OR x:Chapter OR x:Section OR x:Paragraph)
+  AND coalesce(n.text, n.title) IS NOT NULL // Combined with AND
+WITH n, p
+ORDER BY [x IN nodes(p) WHERE x.order IS NOT NULL | x.order]
+WITH collect(coalesce(n.text, n.title)) AS text_parts
+RETURN reduce(document = "", part IN text_parts | document + part + "\n\n") AS full_text
+```
+
 ## TODO
 
 ### Unique IDs
@@ -137,4 +162,8 @@ RETURN p
 
 ### Citations, Sub-Refs, and Commentary
 
-It is currently a bit messy and redundant, needs to be refactored.
+It is currently a bit messy and redundant, needs to be refactored. Commentaries also need to be linked to their respective paragraph (`CommentaryRef`).
+
+### Ordering
+
+Add remaining `order` properties to all nodes.
