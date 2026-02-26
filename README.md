@@ -9,11 +9,11 @@ The schema for UK legislation is complex - the crawler and loader handle much of
 
 > The [loader](loader.ipynb) uses [pyspark](https://spark.apache.org/docs/latest/api/python/index.html) to transform raw JSON data for Neo4j. You can refactor it to use plain Python if needed.
 
-## The Graph Schema
+## The Graph Schema
 
 The resulting graph schema is designed to capture the hierarchical structure of legislation, as well as relationships between different pieces of legislation, citations, and commentaries.
 
-![Graph Schema](renderings/graph_schema.png)
+![Graph Schema](renderings/schema_graph.png)
 
 ## Legislation Parser
 
