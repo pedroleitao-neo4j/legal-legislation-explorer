@@ -17,4 +17,5 @@ dependencies:
   - pip:
     - neo4j
     - pyspark==3.5.1
+    - playwright
     - neo4j-viz
