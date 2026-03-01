@@ -2,7 +2,7 @@
 
 This repo is an example Neo4j use case designed to transform complex legislative data into an accessible, highly structured graph database meticulously describing relationships and temporal dynamics. This tool serves as a foundational architecture for ingesting and organizing the vast corpus of UK legislation directly from the [legislation.gov.uk](https://www.legislation.gov.uk/) repositories.
 
-By leveraging a recursive [crawler](crawler.ipynb) and a robust [data loader](loader.ipynb), this solution processes structured legislative documents adhering to the [CLML Schema](https://github.com/legislation/clml-schema). It bypasses traditional, cumbersome ETL pipelines, manual data cleansing, and unreliable PDF scraping. Instead, it directly parses XML content provided by The National Archives, transforming intricate structural hierarchies—spanning parts, chapters, sections, schedules, and explanatory notes—into a ready-to-use graph representation in Neo4j. This capability allows for complex temporal queries and deep legislative analysis. The underlying loader currently utilizes [pyspark](https://spark.apache.org/docs/latest/api/python/index.html) to optimize the transformation of raw JSON data for Neo4j, though the architecture is adaptable to standard Python environments depending on infrastructure requirements.
+By leveraging a recursive [crawler](crawler.ipynb) and a robust [data loader](loader.ipynb), this solution processes structured legislative documents adhering to the [CLML Schema](https://github.com/legislation/clml-schema). It bypasses traditional, cumbersome ETL pipelines, manual data cleansing, and unreliable PDF scraping. Instead, it directly parses XML content provided by The National Archives, transforming intricate structural hierarchies - spanning parts, chapters, sections, schedules, and explanatory notes - into a ready-to-use graph representation in Neo4j. This capability allows for complex temporal queries and deep legislative analysis. The underlying loader currently utilizes [pyspark](https://spark.apache.org/docs/latest/api/python/index.html) to optimize the transformation of raw JSON data for Neo4j, though the architecture is adaptable to standard Python environments depending on infrastructure requirements.
 
 ## Target State and Objective
 
@@ -37,7 +37,7 @@ As many time labels are captured by the crawler as possible, these timestamps ar
 <p align="center">
   <img src="renderings/filtered_shortest_path.png" alt="Time-filtered Shortest Path"/>
   <br>
-  <sub>Time-filtered Shortest Path Between Acts</sub>
+  <sub>Time-filtered Shortest Paths Between Acts</sub>
 </p>
 
 ## Legislation Parser
