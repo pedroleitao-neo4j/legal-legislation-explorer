@@ -8,12 +8,6 @@ By leveraging a recursive [crawler](crawler.ipynb) and a robust [data loader](lo
 
 Our primary objective is to cultivate a high-fidelity document knowledge graph. This refined data structure acts as an optimal foundation for [GraphRAG](https://neo4j.com/blog/genai/what-is-graphrag/) (Graph Retrieval-Augmented Generation) applications specifically tailored for the legal and professional services sectors.
 
-<p align="center">
-  <img src="renderings/schema_graph.png" alt="Graph Schema"/>
-  <br>
-  <sub>Graph Schema Representation</sub>
-</p>
-
 ## Use Cases in Legal and Professional Services
 
 Firms operating within the legal and regulatory compliance sectors face escalating challenges when navigating complex, interconnected legislation. By structuring legislative texts as a knowledge graph, organizations can deploy advanced GraphRAG solutions to significantly accelerate legal research, ensuring practitioners can rapidly trace statutory references, cross-references, and amendments across decades of law.
