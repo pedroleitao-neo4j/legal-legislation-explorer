@@ -1,4 +1,4 @@
-# UK Legislation Graph Explorer
+# A Graph Model of UK Legislation Text
 
 This repo is an example Neo4j use case designed to transform complex legislative data into an accessible, highly structured graph database describing relationships and temporal dynamics in [UK legal texts](https://www.legislation.gov.uk/).
 
