@@ -2,9 +2,10 @@
 /ukpga/2010/4
 /ukpga/2007/3
 /ukpga/1992/12
-/ukpga/1993/23
+/ukpga/1994/23
 /ukpga/2015/1
 /ukpga/2005/5
+/ukpga/2005/19
 /ukpga/2003/1
 /ukpga/1998/1
 /ukpga/2025/1253
@@ -18,7 +19,6 @@
 /ukpga/2004/12
 /ukpga/2003/14
 /ukpga/2001/2
-/ukpga/1994/23
 /ukpga/1984/51
 /ukpga/1970/9
 /ukpga/2013/29

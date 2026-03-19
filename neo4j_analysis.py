@@ -122,9 +122,11 @@ class Neo4jAnalysis:
         # Clean up the temporary file
         os.remove("remove.html") if not html_file else None
         
-    def set_caption_by_label(self,VG, label_to_property):
+    def set_caption_by_label(self, VG, label_to_property):
         for node in VG.nodes:
             labels = node.properties.get("labels", [])
+            if not labels:
+                continue
             for label, prop in label_to_property.items():
                 if label in labels:
                     node.caption = node.properties.get(prop)

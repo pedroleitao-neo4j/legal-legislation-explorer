@@ -13,9 +13,18 @@ dependencies:
   - pandas
   - tqdm
   - lxml
+  - pytorch
   - pip
   - pip:
     - neo4j
     - pyspark==3.5.1
     - playwright
+    - sentence-transformers
     - neo4j-viz
+    - langchain
+    - langchain-neo4j
+    - langchain-google-genai
+    - langchain-openai
+    - langchain-huggingface
+    - langgraph
+    - streamlit
